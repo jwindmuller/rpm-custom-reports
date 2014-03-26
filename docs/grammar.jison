@@ -5,12 +5,12 @@
 %%
 
 /* directives */
-<directive>Actions
+<directive>(Actions|RepeatingFields)
 %{
   this.popState();
   return ReportParser.npState(this.yy.npOn, 'CONTENT', 'DIRECTIVE_END');
 %}
-Actions
+(Actions|RepeatingFields)
 %{
   this.begin('directive');
   return ReportParser.npState(this.yy.npOn, 'CONTENT', 'DIRECTIVE_START');
