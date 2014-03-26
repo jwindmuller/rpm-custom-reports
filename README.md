@@ -16,20 +16,20 @@ The first possible value will be used as default in case the option is not provi
 
 ## Simple fields
 
-** Simple fields ** are indicated using the field's name:
+**Simple fields** are indicated using the field's name:
 
     [FieldName]
 
 ## Reference fields
 
-** Reference fields ** can be indicated similar to simple fields:
+**Reference fields** can be indicated similar to simple fields:
 
     /**
      * This will show the title of the referenced entity
      **/
     [MyReferenceField]
 
-You can also refer to a ** Simple field inside the referenced entity: ** 
+You can also refer to a **Simple field inside the referenced entity:** 
 
     /**
      * This will show the value of a field called FieldName
