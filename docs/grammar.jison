@@ -16,13 +16,10 @@
   return ReportParser.npState(this.yy.npOn, 'CONTENT', 'DIRECTIVE_START');
 %}
 
-/*\[[^\]]+\]                    return 'SIMPLE_DIRECTIVE'*/
 
 \[                    return 'DIRECTIVE_OPEN'
 \]                    return 'DIRECTIVE_CLOSE'
-/*
-\s[^:]+:[^:\s]+       return 'DIRECTIVE_OPTION'
-*/
+
 /* The rest */
 (.)                     return 'CONTENT'
 (\n)                    return 'CONTENT'
