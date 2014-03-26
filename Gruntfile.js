@@ -26,6 +26,10 @@ module.exports = function(grunt) {
       jison: {
         files: ["docs/grammar.jison"],
         tasks: ['jison:parser']
+      },
+      all: {
+        files: ["*.md", "docs/grammar.jison"],
+        tasks: ['markdown', 'jison']
       }
     }
   });
@@ -41,7 +45,7 @@ module.exports = function(grunt) {
   grunt.registerTask('md', ['markdown', 'watch:md']);
 
   // Default Task is all
-  grunt.registerTask('default', ['md', 'parser']);
+  grunt.registerTask('default', ['markdown', 'jison', 'watch:all']);
   
 
 };

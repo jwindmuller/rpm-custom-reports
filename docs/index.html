@@ -10,6 +10,9 @@
 <p>The new syntax allows the designer to define the field to be inserted via a simple directives composed of text between square brackets:</p>
 <pre><code>[Directive]</code></pre>
 <p>These directive are used to define which form <a href="#simple-fields">field</a> to show; more complex directives are used for repeating structures (<a href="#repeating-fields">repeating fields</a>, <a href="#actions">actions</a> and <a href="#referencing-forms">forms</a>) elements.</p>
+<p>Many directives can have options, they are specified in the following format:</p>
+<pre><code>[Directive option1:(valueA|valueB|...) option2:(valueI|valueII|...)]</code></pre>
+<p>The first possible value will be used as default in case the option is not provided, or if the value given is not valid.</p>
 <h2 id="simple-fields">Simple fields</h2>
 <p><strong> Simple fields </strong> are indicated using the field&#39;s name:</p>
 <pre><code>[FieldName]</code></pre>
@@ -136,7 +139,52 @@ The <code>&lt;content&gt;</code> of the directive will contain other directives 
 </ul>
 <p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be one of the following <strong>action fields</strong>:</p>
 <ul>
-<li><strong> <em>TODO</em> </strong></li>
+<li><p><code>FormTitle</code> - title of the form that the action is attached to</p>
+<pre><code>[FormTitle link:(false|true)]</code></pre>
+</li>
+<li><p><code>Done</code> - wether the action has been marked as done</p>
+<pre><code>[Done yes:(&quot;Yes&quot;|&lt;string&gt;) no:(&quot;No&quot;|&lt;string&gt;)]</code></pre>
+</li>
+<li><p><code>Assignee</code> - user name of the action&#39;s assignee</p>
+<pre><code>[Assignee link:(no|yes)]</code></pre>
+</li>
+<li><p><code>AddedBy</code> - user name of the action&#39;s creator.</p>
+<pre><code>[AddedBy link:(no|yes)]</code></pre>
+</li>
+<li><p><code>Type</code> - type of action</p>
+<pre><code>[Type]</code></pre>
+</li>
+<li><p><code>Description</code> - the action&#39;s description</p>
+<pre><code>[Description]</code></pre>
+</li>
+<li><p><code>Result</code> - the resolution message written by the assignee.</p>
+<pre><code>[Result]</code></pre>
+</li>
+<li><p><code>Priority</code> -  the action&#39;s priotiry (&quot;Normal&quot; or &quot;High&quot;)</p>
+<pre><code>[Priority]</code></pre>
+</li>
+<li><p><a name="due"><code>Due</code></a> - current due date for the action</p>
+<pre><code>[Due format:(&quot;%B %d, %Y&quot;|&lt;string&gt;)]</code></pre>
+<p>  The format option can be built using <a href="http://mootools.net/docs/more/Types/Date#Date:format">Mootool&#39;s date format options</a>.
+  The default format <code>&quot;%B %d, %Y&quot;</code> will print dates as <code>January 12, 1986</code>.</p>
+</li>
+</ul>
+<ul>
+<li><p><code>OriginalDue</code> - original due date of the action</p>
+<pre><code>[OriginalDue format:(&quot;%B %d, %Y&quot;|&lt;string&gt;)]</code></pre>
+<p>  See the format options on <a href="#due">Due</a>.</p>
+</li>
+<li><p><code>Start</code> - start date for the action</p>
+<pre><code>[Start format:(&quot;%B %d, %Y&quot;|&lt;string&gt;)]</code></pre>
+<p>  See the format options on <a href="#due">Due</a>.</p>
+</li>
+<li><p><code>Completed</code> - completed date for the action</p>
+<pre><code>[Start format:(&quot;%B %d, %Y&quot;|&lt;string&gt;)]</code></pre>
+<p>  See the format options on <a href="#due">Due</a>.</p>
+</li>
+<li><p><code>Duration</code> - the total number of days the action was/has been active</p>
+<pre><code>[Duration]</code></pre>
+</li>
 </ul>
 <h3 id="the-table-format">The “table” format</h3>
 <p>The <code>table</code> format provides a way to generate a table in which:</p>

@@ -8,6 +8,11 @@ The new syntax allows the designer to define the field to be inserted via a simp
 
 These directive are used to define which form [field](#simple-fields) to show; more complex directives are used for repeating structures ([repeating fields](#repeating-fields), [actions](#actions) and [forms](#referencing-forms)) elements.
 
+Many directives can have options, they are specified in the following format:
+
+    [Directive option1:(valueA|valueB|...) option2:(valueI|valueII|...)]
+
+The first possible value will be used as default in case the option is not provided, or if the value given is not valid.
 
 ## Simple fields
 
@@ -171,7 +176,68 @@ The **show** option tells RPM from which form to pull the actions to show:
 The `<content>` of the directive can contain other directives. They have to be one of the following **action fields**:
 
 
-- ** _TODO_ **
+- `FormTitle` - title of the form that the action is attached to
+
+      [FormTitle link:(false|true)]
+
+- `Done` - wether the action has been marked as done
+
+      [Done yes:("Yes"|<string>) no:("No"|<string>)]
+
+- `Assignee` - user name of the action's assignee
+
+      [Assignee link:(no|yes)]
+
+- `AddedBy` - user name of the action's creator.
+
+      [AddedBy link:(no|yes)]
+
+- `Type` - type of action
+
+      [Type]
+
+- `Description` - the action's description
+
+      [Description]
+
+- `Result` - the resolution message written by the assignee.
+
+      [Result]
+
+- `Priority` -  the action's priotiry ("Normal" or "High")
+
+      [Priority]
+
+- <a name="due">`Due`</a> - current due date for the action
+
+      [Due format:("%B %d, %Y"|<string>)]
+
+    The format option can be built using [Mootool's date format options][mootools-date].
+    The default format `"%B %d, %Y"` will print dates as `January 12, 1986`.
+
+[mootools-date]: http://mootools.net/docs/more/Types/Date#Date:format
+
+- `OriginalDue` - original due date of the action
+
+      [OriginalDue format:("%B %d, %Y"|<string>)]
+
+    See the format options on [Due](#due).
+
+- `Start` - start date for the action
+
+      [Start format:("%B %d, %Y"|<string>)]
+
+    See the format options on [Due](#due).
+
+- `Completed` - completed date for the action
+
+      [Start format:("%B %d, %Y"|<string>)]
+    
+    See the format options on [Due](#due).
+
+- `Duration` - the total number of days the action was/has been active
+
+      [Duration]
 
 ### The “table” format
 
