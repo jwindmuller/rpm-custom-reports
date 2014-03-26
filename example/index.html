@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<textarea name="content" id="content" style="height:200px;width:100%;max-width:100%;min-width:100%;">
+	dsfahds
+	dsfahds
+
+;
+[Actions format:table show:own]
+	alskdflk
+	[ActionField1]
+	[ActionField2]
+[Actions]
+
+
+[Actions format:table show:oewn]
+	otyher
+[Actions]
+a
+
+asdfsd
+</textarea>
+<button onclick="parseContent();" style="width:100%;">Parse</button>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/mootools/1.4.5/mootools-core-full-compat.min.js"></script>
+	<script src="../lib/ReportParser.js"></script>
+	<script src="../lib/Parser.js"></script>
+	
+	<script>
+	function parseContent() {
+		if (!window.contentTextArea) {
+			window.contentTextArea = document.getElementById('content');
+		};
+		var c = window.contentTextArea.value;
+		var parsed = parser.parse(c);
+		console.debug(parsed);
+	}
+	</script>
+</body>
+</html>
