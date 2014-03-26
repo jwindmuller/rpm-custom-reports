@@ -5,20 +5,21 @@
 %%
 
 /* directives */
-<directive>(Actions|RepeatingFields)
+\[(Actions|RepeatingFields)\]
 %{
-  this.popState();
-  return ReportParser.npState(this.yy.npOn, 'CONTENT', 'DIRECTIVE_END');
+  this.yy.directiveContent = false;
+  return 'DIRECTIVE_END'
 %}
-(Actions|RepeatingFields)
+\[(Actions|RepeatingFields)[^\]]+\]
 %{
-  this.begin('directive');
-  return ReportParser.npState(this.yy.npOn, 'CONTENT', 'DIRECTIVE_START');
+  this.yy.directiveContent = true;
+  return 'DIRECTIVE_START'
 %}
 
-
-\[                    return 'DIRECTIVE_OPEN'
-\]                    return 'DIRECTIVE_CLOSE'
+\[\w+[^\]]+\]
+%{
+  return 'SIMPLE_DIRECTIVE';
+%}
 
 /* The rest */
 (.)                     return 'CONTENT'
@@ -50,25 +51,21 @@ contents
 content
   : CONTENT
     {$$ = $1;}
-  | DIRECTIVE_OPEN DIRECTIVE_START directive_options DIRECTIVE_CLOSE 
-      directive_contents 
-    DIRECTIVE_OPEN DIRECTIVE_END  DIRECTIVE_CLOSE
-    { $$ = ReportParser.Directive.parse($2, $3, $5); } 
-  ;
-directive_options
-  :
-  | directive_option
-    {$$ = $1;}
-  | directive_options directive_option
-    {$$ =  ReportParser.join($1, $2);}
-  ;
-directive_option
-  : CONTENT
-    {$$ = $1;}
+  | DIRECTIVE_START
+      directive_contents
+    DIRECTIVE_END
+    {
+      $$ = ReportParser.Directive.parse($1, $2);
+    }
+  | SIMPLE_DIRECTIVE
+    {
+      $$ = ReportParser.Directive.parseSimple($1);
+    }
   ;
 
 directive_contents
   : 
+    { $$ = 'cosa'; }
   | directive_content
     {$$ = $1;}
   | directive_contents directive_content
@@ -77,13 +74,6 @@ directive_contents
 directive_content
   : CONTENT
     {$$ = $1;}
-  | DIRECTIVE_OPEN simple_directive_contents DIRECTIVE_CLOSE
-    {$$ = ReportParser.Directive.parseSimple($2);}
-  ;
-simple_directive_contents
-  :
-  | simple_directive_content
-    {$$ = $1;}
-  | simple_directive_contents CONTENT
-    {$$ =  ReportParser.join($1, $2);}
+  | SIMPLE_DIRECTIVE
+    {$$ = ReportParser.Directive.parseSimple($1);}
   ;
