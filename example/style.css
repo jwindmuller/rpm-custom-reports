@@ -1,0 +1,25 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+* {
+	box-sizing:border-box;
+}
+div {
+	width:50%;
+	height:100%;
+	float: left;
+	position: relative;
+	padding: 10px;
+}
+#input {
+	padding-bottom: 45px;
+}
+textarea {
+	height:100%;
+	width: 100%;
+	font-size: 120%;
+}
+input {
+	width: 100%;
+}

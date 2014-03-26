@@ -2,29 +2,38 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<textarea name="content" id="content" style="height:200px;width:100%;max-width:100%;min-width:100%;">
-	dsfahds
-	dsfahds
+<div id="input">
+	<textarea name="content" id="content" />
+<h1>This is a Title</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? Ullam, eum.</p>
 
-;
 [Actions format:table show:own]
-	alskdflk
+
+	Some Text
 	[ActionField1]
 	[ActionField2]
+
 [Actions]
 
 
-[Actions format:table show:oewn]
-	otyher
-[Actions]
-a
 
-asdfsd
-</textarea>
-<button onclick="parseContent();" style="width:100%;">Parse</button>
+[RepeatingFields format:table]
+
+	[SomeRepeatingField]
+
+[RepeatingFields]
+
+<p>Fin.</p>
+	</textarea>
+	<input type="button" value="Parse" onclick="parseContent();" />
+</div>
+<div>
+	<textarea name="preview" id="preview"></textarea>
+</div>
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/mootools/1.4.5/mootools-core-full-compat.min.js"></script>
 	<script src="../lib/ReportParser.js"></script>
@@ -37,7 +46,7 @@ asdfsd
 		};
 		var c = window.contentTextArea.value;
 		var parsed = parser.parse(c);
-		console.debug(parsed);
+		$('preview').set('text', parsed);
 	}
 	</script>
 </body>
