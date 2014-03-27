@@ -11,7 +11,8 @@
 <div id="input">
   <textarea name="content" id="content" />
 <h1>This is a Title</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? Ullam, eum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. For this [Reason] Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? [Ullam.eum].</p>
+
 
 <h2>These are actions... in a table.</h2>
 [Actions format:table show:own]
@@ -40,6 +41,18 @@
     <b>[Repeating Field One]</b> - [Repeating Field 2]
     <p>Some fancy text!</p>
     <p>Theres also this: [Repeating Reference.Field]</p>
+  </li>
+[RepeatingFields]
+
+</ol>
+
+<h2>Wrong format value goes back to the default "table" format</h2>
+<p>These <strong>repeating fields</strong> has <em>format:customized</em></p>
+<ol>
+
+[RepeatingFields format:customized]
+  <li>
+    <b>[Some Repeating Field]</b> - [Repeating Field 2]
   </li>
 [RepeatingFields]
 
