@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 * {
   box-sizing:border-box;
@@ -11,9 +12,11 @@ div {
   float: left;
   position: relative;
   padding: 10px;
-}
-#input {
   padding-bottom: 45px;
+}
+.html-preview {
+  width: 100%;
+  margin-bottom: 5px;
 }
 textarea {
   height:100%;
@@ -22,4 +25,51 @@ textarea {
 }
 input {
   width: 100%;
+}
+
+.hide {
+  display: none;
+}
+
+.actions-directive {
+  display: block;
+  background: #f4f4f4;
+  padding:3px 2px
+}
+
+table {
+  width:100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  background: #fff;
+  border:#fff 1px solid;
+  font-size:90%;
+}
+th, td {
+  background: #f4f4f4;
+  border-right: #d1d1d1 1px solid;
+  border-bottom: #d1d1d1 1px solid;
+  padding:5px;
+}
+th {
+  color:#666;
+  background: #f4f4f4;
+  padding:2px 5px;
+}
+
+tr:nth-child(2n) td {
+  background: #fff;
+}
+tr :first-child {
+  border-left:#fff 1px solid;
+}
+tr :last-child {
+  border-right:#fff 1px solid;
+}
+tr:last-child td {
+  border-bottom:none;
+}
+
+td.dotdotdot {
+  text-align: center;
 }

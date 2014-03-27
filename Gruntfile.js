@@ -18,6 +18,15 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      development: {
+        files: [
+          {
+            'lib/mustache/mustache.js': 'bower_components/mustache/mustache.js'
+          }
+        ]
+      }
+    },
     watch: {
       md: {
         files: "*.md",
@@ -29,7 +38,7 @@ module.exports = function(grunt) {
       },
       all: {
         files: ["*.md", "docs/grammar.jison"],
-        tasks: ['markdown', 'jison']
+        tasks: ['all']
       }
     }
   });
@@ -38,6 +47,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-markdown');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
   grunt.loadNpmTasks('grunt-jison');
 
   // Tasks
@@ -45,7 +56,9 @@ module.exports = function(grunt) {
   grunt.registerTask('md', ['markdown', 'watch:md']);
 
   // Default Task is all
-  grunt.registerTask('default', ['markdown', 'jison', 'watch:all']);
+  grunt.registerTask('all', ['markdown', 'jison', 'copy']);
+
+  grunt.registerTask('default', ['all', 'watch:all']);
   
 
 };

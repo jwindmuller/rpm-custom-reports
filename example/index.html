@@ -2,7 +2,9 @@
 <html>
 <head>
   <title></title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
 
@@ -29,12 +31,16 @@
   <input type="button" value="Parse" onclick="parseContent();" />
 </div>
 <div>
-  <textarea name="preview" id="preview"></textarea>
+  <textarea name="preview" id="preview" class="hide"></textarea>
+  <div class="html-preview" id="html-preview"></div>
+  <input type="button" value="Show HTML" onclick="toggleHTML();" />
 </div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/mootools/1.4.5/mootools-core-full-compat.min.js"></script>
   <script src="../lib/ReportParser.js"></script>
   <script src="../lib/Parser.js"></script>
+
+  <script src="../lib/ReportPreview.js"></script>
   
   <script>
   function parseContent() {
@@ -44,7 +50,30 @@
     var c = window.contentTextArea.value;
     var parsed = parser.parse(c);
     $('preview').set('text', parsed);
+    $('html-preview').set('html', parsed);
+    ReportPreview.preview($('html-preview'));
   }
+  function toggleHTML() {
+    $('preview').toggleClass('hide');
+    $('html-preview').toggleClass('hide');
+  }
+  </script>
+  <script src="../lib/mustache/mustache.js"></script>
+  <script type="text/html" id="table-template">
+    <table>
+      <tr>
+        {{#headers}}
+          <th>{{.}}</th>
+        {{/headers}}
+      </tr>
+      {{#rows}}
+      <tr>
+        {{#cells}}
+          <td class="{{cssClass}}">{{text}}</td>
+        {{/cells}}
+      </tr>
+      {{/rows}}
+    </table>
   </script>
 </body>
 </html>
