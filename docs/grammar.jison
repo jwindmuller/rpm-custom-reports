@@ -8,7 +8,7 @@
 \[(Actions|RepeatingFields)\]
 %{
   this.yy.directiveContent = false;
-  this.yy.directive = '';
+  this.yy.directive = undefined;
   return 'DIRECTIVE_END'
 %}
 \[(Actions|RepeatingFields)[^\]]+\]
