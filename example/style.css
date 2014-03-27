@@ -93,3 +93,6 @@ td.dotdotdot {
   color: #666666;
   font-size: 80%;
 }
+.reference:before {
+  content: "RefField: ";
+}
