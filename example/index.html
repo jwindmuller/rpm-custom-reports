@@ -13,6 +13,7 @@
 <h1>This is a Title</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? Ullam, eum.</p>
 
+<h2>These are actions... in a table.</h2>
 [Actions format:table show:own]
 
   Some Text
@@ -30,8 +31,23 @@
   There's also a reference field: [A Reference.Inner Field]
 </p>
 
+<h2>These are a bunch of repeating fields</h2>
+
+<ol>
+
+[RepeatingFields format:custom]
+  <li>
+    <b>[Repeating Field One]</b> - [Repeating Field 2]
+    <p>Some fancy text!</p>
+    <p>Theres also this: [Repeating Reference.Field]</p>
+  </li>
+[RepeatingFields]
+
+</ol>
+
 <p>Fin.</p>
-  </textarea>
+
+</textarea>
   <input type="button" value="Parse" onclick="parseContent();" />
 </div>
 <div>
