@@ -1,14 +1,22 @@
-html, body {
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+html,
+body {
   height: 100%;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  color: #333333;
 }
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 div {
-  width:50%;
-  height:100%;
+  width: 50%;
+  height: 100%;
   float: left;
   position: relative;
   padding: 10px;
@@ -19,57 +27,69 @@ div {
   margin-bottom: 5px;
 }
 textarea {
-  height:100%;
+  height: 100%;
   width: 100%;
   font-size: 120%;
 }
 input {
   width: 100%;
 }
-
 .hide {
   display: none;
 }
-
 .actions-directive {
   display: block;
   background: #f4f4f4;
-  padding:3px 2px
+  padding: 3px 2px;
 }
-
+.actions-directive {
+  margin-bottom: 1em;
+}
 table {
-  width:100%;
+  width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
-  background: #fff;
-  border:#fff 1px solid;
-  font-size:90%;
+  background: #ffffff;
+  border: #ffffff 1px solid;
+  font-size: 90%;
 }
-th, td {
+th,
+td {
   background: #f4f4f4;
   border-right: #d1d1d1 1px solid;
   border-bottom: #d1d1d1 1px solid;
-  padding:5px;
+  padding: 5px;
 }
 th {
-  color:#666;
+  color: #333333;
   background: #f4f4f4;
-  padding:2px 5px;
+  padding: 2px 5px;
 }
-
 tr:nth-child(2n) td {
-  background: #fff;
+  background: #ffffff;
 }
 tr :first-child {
-  border-left:#fff 1px solid;
+  border-left: #ffffff 1px solid;
 }
 tr :last-child {
-  border-right:#fff 1px solid;
+  border-right: #ffffff 1px solid;
 }
 tr:last-child td {
-  border-bottom:none;
+  border-bottom: none;
 }
-
 td.dotdotdot {
   text-align: center;
+}
+.form-field {
+  border: #d1d1d1 1px solid;
+  padding: 0 5px;
+  background: #f4f4f4;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.form-field:before {
+  content: "Form Field: ";
+  color: #666666;
+  font-size: 80%;
 }

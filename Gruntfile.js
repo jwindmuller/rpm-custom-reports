@@ -27,6 +27,13 @@ module.exports = function(grunt) {
         ]
       }
     },
+    less : {
+      development: {
+        files: [
+          {'example/style.css': 'example/less/example.less'}
+        ]
+      }
+    },
     watch: {
       md: {
         files: "*.md",
@@ -37,7 +44,7 @@ module.exports = function(grunt) {
         tasks: ['jison:parser']
       },
       all: {
-        files: ["*.md", "docs/grammar.jison"],
+        files: ["*.md", "docs/grammar.jison", "example/less/*.less"],
         tasks: ['all']
       }
     }
@@ -48,6 +55,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   grunt.loadNpmTasks('grunt-jison');
 
@@ -56,7 +64,7 @@ module.exports = function(grunt) {
   grunt.registerTask('md', ['markdown', 'watch:md']);
 
   // Default Task is all
-  grunt.registerTask('all', ['markdown', 'jison', 'copy']);
+  grunt.registerTask('all', ['markdown', 'jison', 'copy', 'less']);
 
   grunt.registerTask('default', ['all', 'watch:all']);
   

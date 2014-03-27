@@ -1,0 +1,39 @@
+.actions-directive {
+  margin-bottom: 1em;
+}
+table {
+  width:100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  background: @background-default;
+  border:@background-default 1px solid;
+  font-size:90%;
+}
+th, td {
+  background: @background-darker;
+  border-right: @border 1px solid;
+  border-bottom: @border 1px solid;
+  padding:5px;
+}
+th {
+  color:@text-color;
+  background: @background-darker;
+  padding:2px 5px;
+}
+
+tr:nth-child(2n) td {
+  background: @background-default;
+}
+tr :first-child {
+  border-left:@background-default 1px solid;
+}
+tr :last-child {
+  border-right:@background-default 1px solid;
+}
+tr:last-child td {
+  border-bottom:none;
+}
+
+td.dotdotdot {
+  text-align: center;
+}
