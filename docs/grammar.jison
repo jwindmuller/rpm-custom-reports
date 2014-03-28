@@ -5,13 +5,13 @@
 %%
 
 /* directives */
-\[(Actions|RepeatingFields)\]
+\[(Actions|RepeatingFields|Referenced)\]
 %{
   this.yy.directiveContent = false;
   this.yy.directive = undefined;
   return 'DIRECTIVE_END'
 %}
-\[(Actions|RepeatingFields)[^\]]+\]
+\[(Actions|RepeatingFields|Referenced)[^\]]+\]
 %{
   this.yy.directive = ReportParser.Directive.parseName(this.match);
   this.yy.directiveContent = true;

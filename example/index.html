@@ -10,20 +10,8 @@
 
 <div id="input">
   <textarea name="content" id="content" />
-<h1>This is a Title</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. For this [Reason] Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? [Ullam.eum].</p>
 
-
-<h2>These are actions... in a table.</h2>
-[Actions format:table show:own]
-
-  Some Text
-  [FormTitle]
-  [NonActionField]
-  [Description]
-  [Due]
-
-[Actions]
+<h1>Form Fields</h1>
 
 <p>
   I want to show this field: [Some Field Name]
@@ -32,8 +20,11 @@
   There's also a reference field: [A Reference.Inner Field]
 </p>
 
-<h2>These are a bunch of repeating fields</h2>
+<p><strong>You can have fields inside text: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. For this [Reason] Neque, obcaecati, eligendi, quae fugit libero nisi quos expedita non sequi voluptas provident dolorem officiis velit commodi labore eaque beatae? [Ullam.eum].</p>
 
+<h2>You can show repeating fields</h2>
+
+<h3>format:custom</h3>
 <ol>
 
 [RepeatingFields format:custom]
@@ -46,8 +37,15 @@
 
 </ol>
 
-<h2>Wrong format value goes back to the default "table" format</h2>
-<p>These <strong>repeating fields</strong> has <em>format:customized</em></p>
+<h3>format:table</h3>
+[RepeatingFields format:table]
+  [Some Repeating Field]
+  [Repeating Field 2]
+  [A Field Called Like This]
+[RepeatingFields]
+
+<h3>Incorrect format will default to "table"</h3>
+<p>This applies to any repeating structure (like actions and referencign fields)</p>
 <ol>
 
 [RepeatingFields format:customized]
@@ -58,7 +56,34 @@
 
 </ol>
 
+<h1>Actions</h1>
+<h2>format:table</h2>
+<p>These are actions... in a table</p>
+[Actions format:table show:own]
+
+  Some Text
+  [FormTitle]
+  [NonActionField]
+  [Description]
+  [Due]
+
+[Actions]
+
+
+<h1>Referencing Forms</h1>
+
+[Referenced in:"Some Other Process" format:table]
+  [Some Form Field]
+  [Antother Field]
+  [And a ReferenceField]
+[Referenced]
+
 <p>Fin.</p>
+
+
+
+
+
 
 </textarea>
   <input type="button" value="Parse" onclick="parseContent();" />
