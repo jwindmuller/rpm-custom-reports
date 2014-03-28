@@ -6,58 +6,64 @@
 <body>
 
 <h1 id="custom-report-s-syntax">Custom Report&#39;s Syntax</h1>
-<p>This new syntax should remove any copy/paste step from the report design process. This should allow the designer to focus on understanding the process they are reporting on as well as all other related processes available via reference fields.</p>
-<p>The new syntax allows the designer to define the field to be inserted via a simple directives composed of text between square brackets:</p>
+<p>Custom Reports give users the ability to present a single form&#39;s data in a custom format using standard web technologies: HTML, CSS and JavaScript.</p>
+<p>In between the html report designers can put directives that tell RPM what data to show. These directives are composed of text between square brackets:</p>
 <pre><code>[Directive]</code></pre>
-<p>These directive are used to define which form <a href="#simple-fields">field</a> to show; more complex directives are used for repeating structures (<a href="#repeating-fields">repeating fields</a>, <a href="#actions">actions</a> and <a href="#referencing-forms">forms</a>) elements.</p>
+<p>These directive are used to define which form <a href="#simple-fields">field</a> to show; more complex directives are used for repeating structures like <a href="#repeating-fields">repeating fields</a>, <a href="#actions">actions</a> and <a href="#referencing-forms">forms</a>.</p>
 <p>Many directives can have options, they are specified in the following format:</p>
 <pre><code>[Directive option1:(valueA|valueB|...) option2:(valueI|valueII|...)]</code></pre>
-<p>The first possible value will be used as default in case the option is not provided, or if the value given is not valid.</p>
+<p>If an option is not provided (or if the provided value is not valid), the first value on the list will be used.</p>
 <h2 id="simple-fields">Simple fields</h2>
-<p><strong>Simple fields</strong> are indicated using the field&#39;s name:</p>
-<pre><code>[FieldName]</code></pre>
+<p>Custom fields can be displayed inside reports by using the field&#39;s name as the directive content:</p>
+<pre><code>[FieldName display:(value|name)]</code></pre>
+<h3 id="options">Options</h3>
+<ul>
+<li><p><code>display</code> - determines if the output will be the field value or its name.</p>
+<p>  This is useful for cases when the report needs to show the field name beside its value.</p>
+</li>
+</ul>
 <h2 id="reference-fields">Reference fields</h2>
-<p><strong>Reference fields</strong> can be indicated similar to simple fields:</p>
+<p><strong>Reference fields</strong> can be indicated in the same way as simple fields:</p>
 <pre><code>/**
  * This will show the title of the referenced entity
  **/
-[MyReferenceField]</code></pre>
-<p>You can also refer to a <strong>Simple field inside the referenced entity:</strong> </p>
+[MyReferenceField display:(value|name)]</code></pre>
+<p>Aditionally, you can show any simple field in the referenced entity (another Form, Staff user, etc.):</p>
 <pre><code>/**
  * This will show the value of a field called FieldName
  * of the MyReferenceField Reference Field
  **/
-[MyReferenceField.FieldName] </code></pre>
-<p><strong>Note:</strong> it is not possible to access a referenced entity via a reference:</p>
+[MyReferenceField.FieldName  display:(value|name)]</code></pre>
+<h3 id="options">Options</h3>
+<p>Same as <a href="#simple-fields">simple fields</a>.</p>
+<hr>
+<p><strong>Important:</strong> it is not possible to access a referenced entity via a reference:</p>
 <pre><code>// This will not work!
 [ReferenceField1.OtherReferenceField.SomeField]</code></pre>
 <p>One solution to this limitation is to keep a reference in your process to the second level reference. If you use RPM&#39;s process flows they can be populated automatically.</p>
+<hr>
 <h2 id="repeating-fields">Repeating fields</h2>
-<p>Repeating fields can be displayed inside reports with the <code>RepeatingFields</code> directive, you can use it in two ways:</p>
+<p>Repeating fields can be displayed inside reports with the <code>RepeatingFields</code> directive, it tells RPM how to show each set of repeating fields:</p>
 <pre><code>[RepeatingFields format:(table|custom)]
     &lt;content&gt;
-[/RepeatingFields]</code></pre>
-<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be <strong>simple fields</strong> or <strong>fields from reference fields</strong> that are setup as repeating.</p>
-<p>The <strong>format</strong> options are:</p>
+[RepeatingFields]</code></pre>
+<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be <strong>simple fields</strong> or <strong>reference fields</strong> that are <em>setup as repeating</em>.</p>
+<h3 id="options">Options</h3>
 <ul>
-<li><p><strong>table</strong> show the actions in table format.<br>The <code>&lt;content&gt;</code> of the directive will be a list the fields to be shown as columns on the table.</p>
-</li>
-<li><p><strong>custom</strong> uses the content as an HTML template to display each action.<br>The <code>&lt;content&gt;</code> of the directive will contain other directives interspersed inside some HTML code.</p>
-</li>
-</ul>
-<h3 id="the-table-format">The “table” format</h3>
-<p>The <code>table</code> format provides a way to generate a table in which:</p>
+<li><p><code>format</code> - determines how each set of repeating field is displayed:</p>
 <ul>
-<li>Each set of repeating field will become a row </li>
-<li>The name of the field becomes the header of the column.</li>
-</ul>
+<li><p><strong>table</strong>: shows each set of repeating fields as a row in a table.<br>The <code>&lt;content&gt;</code> has to contain a list of fields to be shown as columns on the table.</p>
 <pre><code>[RepeatingFields format:table]
     [RepeatingFieldName1]
     [RepeatingReferenceFieldName1.FieldName]
     [RepeatingFieldName2]
     [RepeatingReferenceFieldName2.FieldName]
     ...
-[/RepeatingFields]</code></pre>
+[RepeatingFields]</code></pre>
+<ul>
+<li>Each set of repeating field will become a row</li>
+<li>The name of the field becomes the header of the column</li>
+</ul>
 <p>This will generate the following markup:</p>
 <pre><code>&lt;table&gt;
     &lt;!-- Table Headers  --&gt;
@@ -79,33 +85,33 @@
     &lt;/tr&gt;
     &lt;!-- ... --&gt;
 &lt;/table&gt;</code></pre>
-<h3 id="the-custom-format">The “custom” format</h3>
-<p>The <code>custom</code> format tells RPM to repeat its content for each repeating field set. </p>
-<pre><code>&lt;ul&gt;
+</li>
+<li><p><strong>custom</strong>: shows each set of repeating fields using custom formatting.<br>The <code>&lt;content&gt;</code> will contain other simple and reference fields interspersed inside some HTML.</p>
+<pre><code>&lt;ul&gt; &lt;!-- Outside RepeatingFields  --&gt;
 [RepeatingFields format:custom]
     &lt;li&gt;
         &lt;span class=&quot;title&gt;
             [RepeatingFieldName1]
         &lt;/span&gt;
         &lt;span class=&quot;note&quot;&gt;
-            [RepeatingReferenceFieldName1.FieldName] - 
+            [RepeatingReferenceFieldName1.FieldName] -
             [RepeatingFieldName2]
         &lt;/span&gt;
         &lt;p&gt;
             [RepeatingReferenceFieldName2.FieldName]
         &lt;/p&gt;
     &lt;/li&gt;
-[/RepeatingFields]
-&lt;/ul&gt;</code></pre>
+[RepeatingFields]
+&lt;/ul&gt; &lt;!-- Outside RepeatingFields  --&gt;</code></pre>
 <p>This will generate the following markup:</p>
-<pre><code>&lt;ul&gt;
+<pre><code>&lt;ul&gt; &lt;!-- Outside RepeatingFields  --&gt;
     &lt;!-- Repeating set 1 --&gt;
     &lt;li&gt;
         &lt;span class=&quot;title&gt;
             Value for RepeatingFieldName1
         &lt;/span&gt;
         &lt;span class=&quot;note&quot;&gt;
-            Value for RepeatingReferenceFieldName1.FieldName - 
+            Value for RepeatingReferenceFieldName1.FieldName -
             Value for RepeatingFieldName2
         &lt;/span&gt;
         &lt;p&gt;
@@ -113,31 +119,43 @@
         &lt;/p&gt;
     &lt;/li&gt;
     &lt;!-- ... --&gt;
-&lt;/ul&gt;</code></pre>
+&lt;/ul&gt; &lt;!-- Outside RepeatingFields  --&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="actions">Actions</h2>
-<p>Custom Reports also allow to show a list of actions.</p>
-<p>They can be displayed inside reports with the <code>Actions</code> directive, the format of this directive is very similar to RepeatingFields:</p>
-<pre><code>[Actions format:(table|native|custom) show:(own|ReferenceField)]
+<p>Custom reports can show a list of actions attached to the reported form, or to a linked form via a reference field.</p>
+<p>They can be displayed using the <code>Actions</code> directive, it is very similar to <a href="#repeating-fields">RepeatingFields</a>:</p>
+<pre><code>[Actions format:(table|native|custom) show:(own|&quot;Reference Field Name&quot;)]
     &lt;content&gt;
-[/Actions]</code></pre>
-<p>The <strong>format</strong> options are:</p>
+[Actions]</code></pre>
+<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be one of the available <a href="#action-fields"><strong>action fields</strong></a>.</p>
+<h3 id="options">Options</h3>
 <ul>
-<li><p><strong>table</strong> show the actions in table format.<br>The <code>&lt;content&gt;</code> of the directive will be a list the fields to be shown as columns on the table.</p>
+<li><p><code>format</code> - determines how each set of repeating field is displayed:</p>
+<ul>
+<li><p><strong>table</strong>:  it behaves the same as the table format on <a href="#repeating-fields">RepeatingFields</a>.</p>
+<p>  The <code>&lt;content&gt;</code> has to contain a list of <a href="#action-fields">action fields</a> to be shown as columns on the table.</p>
+<ul>
+<li>Each action will become a row</li>
+<li>The name of the field becomes the header of the column.</li>
+</ul>
 </li>
-<li><p><strong>custom</strong> uses the content as an HTML template to display each action.
-The <code>&lt;content&gt;</code> of the directive will contain other directives interspersed inside some HTML code.</p>
-</li>
-<li><p><strong>native</strong> show the actions in the same format they are shown inside RPM.<br>This directive takes no <code>&lt;content&gt;</code>.</p>
+<li><p><strong>custom</strong>:  it behaves the same as the custom format on <a href="#repeating-fields">RepeatingFields</a>.</p>
 </li>
 </ul>
-<p>The <strong>show</strong> option tells RPM from which form to pull the actions to show:</p>
-<ul>
-<li><p><strong>own</strong> shows the actions from the form being reported.</p>
 </li>
-<li><p><strong>ReferenceField</strong> the name of a process reference field. It will show the actions from the form referenced.</p>
+<li><p><code>show</code> - tells RPM the origin of the actions to show:</p>
+<ul>
+<li><p><strong>own</strong>: shows the actions from the form being reported.</p>
+</li>
+<li><p><strong>&quot;Reference Field Name&quot;</strong>: the name of a process reference field.<br>It will show the actions created on the form linked via the reference field.</p>
 </li>
 </ul>
-<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be one of the following <strong>action fields</strong>:</p>
+</li>
+</ul>
+<h3 id="action-fields">Action fields</h3>
 <ul>
 <li><p><code>FormTitle</code> - title of the form that the action is attached to</p>
 <pre><code>[FormTitle link:(false|true)]</code></pre>
@@ -186,90 +204,30 @@ The <code>&lt;content&gt;</code> of the directive will contain other directives 
 <pre><code>[Duration]</code></pre>
 </li>
 </ul>
-<h3 id="the-table-format">The “table” format</h3>
-<p>The <code>table</code> format provides a way to generate a table in which:</p>
-<ul>
-<li>Each action will become a row </li>
-<li>The name of the field becomes the header of the column.</li>
-</ul>
-<pre><code>[Actions format:table]
-    [ActionField1]
-    [ActionField2]
-    ...
-[/Actions]</code></pre>
-<p>This will generate the following markup:</p>
-<pre><code>&lt;table&gt;
-    &lt;!-- Table Headers  --&gt;
-    &lt;tr&gt;
-        &lt;th&gt;ActionField1&lt;/th&gt;
-        &lt;th&gt;ActionField2&lt;/th&gt;
-        &lt;!-- ... --&gt;
-    &lt;/tr&gt;
-    &lt;!-- Table Content: each row is one action --&gt;
-    &lt;!-- Action 1 --&gt;
-    &lt;tr&gt;
-        &lt;td&gt;Value for ActionField1&lt;/td&gt;
-        &lt;td&gt;Value for ActionField2&lt;/td&gt;
-        &lt;!-- ... --&gt;
-    &lt;/tr&gt;
-    &lt;!-- ... --&gt;
-&lt;/table&gt;</code></pre>
-<h3 id="the-custom-format">The “custom” format</h3>
-<p>The <code>custom</code> format tells RPM to repeat its content for each action. </p>
-<pre><code>&lt;ul&gt;
-[Actions format:custom]
-    &lt;li&gt;
-        &lt;span class=&quot;title&gt;
-            [ActionField1]
-        &lt;/span&gt;
-        &lt;span class=&quot;note&quot;&gt;
-            [ActionField2] 
-        &lt;/span&gt;
-        &lt;p&gt;
-            [ActionField3]
-        &lt;/p&gt;
-    &lt;/li&gt;
-[/Actions]
-&lt;/ul&gt;</code></pre>
-<p>This will generate the following markup:</p>
-<pre><code>&lt;ul&gt;
-    &lt;!-- Action #1 --&gt;
-    &lt;li&gt;
-        &lt;span class=&quot;title&gt;
-            Value for ActionField1
-        &lt;/span&gt;
-        &lt;span class=&quot;note&quot;&gt;
-            Value for ActionField2
-        &lt;/span&gt;
-        &lt;p&gt;
-            Value for ActionField3
-        &lt;/p&gt;
-    &lt;/li&gt;
-    &lt;!-- ... --&gt;
-&lt;/ul&gt;</code></pre>
-<h3 id="the-native-format">The “native” format</h3>
-<p>The <code>native</code> format will show the actions in the same way RPM displays them in a form view.</p>
-<pre><code>[Actions format:native]
-
-[/Actions]</code></pre>
-<p>The output will vary depending on the current implementation inside RPM.</p>
 <h2 id="referencing-forms">Referencing Forms</h2>
-<p>Reports also allow the designer to show list of forms that refer to the form beign reprorted (via a Reference Field). </p>
-<p>They can be displayed inside reports with the <code>Referenced</code> directive, the format of this directive is very similar to RepeatingFields:</p>
-<pre><code>[Referenced in:&quot;Process Name&quot; format:(table|custom)]
+<p>Custom reports can show a list of forms that link to the reported form via a reference field.</p>
+<p>They can be displayed using the <code>Referenced</code> directive, it is very similar to <a href="#repeating-fields">RepeatingFields</a>:</p>
+<pre><code>[Referenced format:(table|custom) in:&quot;Process Name&quot;]
     &lt;content&gt;
-[/Referenced]</code></pre>
-<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be <strong>simple fields</strong> or <strong>fields from reference fields</strong> that are setup on the process defined in the <code>in</code> option.</p>
-<p>The <strong>in</strong> option is the process name to load data from.</p>
+[Referenced]</code></pre>
+<p>The <code>&lt;content&gt;</code> of the directive can contain other directives. They have to be <strong>simple fields</strong> or <strong>reference fields</strong> that are setup on the process defined on the <code>in</code> option.</p>
+<h3 id="options">Options</h3>
 <ul>
-<li>That process must have a reference field to the process of the form being reported.</li>
+<li><p><code>format</code> - determines how each set of repeating field is displayed:</p>
+<ul>
+<li><p><strong>table</strong>: it behaves the same as the table format on <a href="#repeating-fields">RepeatingFields</a>.</p>
+<p>  The <code>&lt;content&gt;</code> has to contain a list the fields from the referencing form to be shown as columns on the table.</p>
+<ul>
+<li>Each referencing form will become a row.</li>
+<li>Each field will become a column.</li>
 </ul>
-<p>The <strong>format</strong> options are:</p>
-<ul>
-<li><p><strong>table</strong> show the referencing forms in table format.<br>The <code>&lt;content&gt;</code> of the directive will be a list the fields to be shown as columns on the table.</p>
 </li>
-<li><p><strong>custom</strong> uses the content as an HTML template to display each referencing form.
-The <code>&lt;content&gt;</code> of the directive will contain other directives interspersed inside some HTML code.</p>
+<li><p><strong>custom</strong>:  it behaves the same as the custom format on <a href="#repeating-fields">RepeatingFields</a>.</p>
+</li>
+</ul>
+</li>
+<li><p><code>in</code> - indicate which process to look at for references to the reported form</p>
+<p>  That process must have a reference field to the process of the form being reported.</p>
 </li>
 </ul>
 
