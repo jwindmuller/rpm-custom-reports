@@ -1,6 +1,6 @@
 {
-  "name": "CustomReportsSyntax",
-  "version": "0.1.0",
+  "name": "rpm-custom-reports",
+  "version": "0.5.0",
   "homepage": "https://github.com/rpmjoaquin/rpm-custom-reports",
   "authors": [
     "Joaquin Windmuller <joaquin@rpmsoftware.com>"
