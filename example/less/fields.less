@@ -1,16 +1,22 @@
-.form-field {
+.field {
   border: @border 1px solid;
   padding: 0 5px;
   background:@background-darker;
   .rounded(3px);
 }
 
-.form-field:before {
-  content: "Form Field: ";
+.form-field:before,
+.form-information:before,
+.reference:before {
+  content: "Field: ";
   color:@text-color-lighter;
   font-size: 80%;
+  font-weight: normal;
+}
+.form-information:before {
+  content: "Information: ";
 }
 
 .reference:before {
-  content: "RefField: ";
+  content: "Reference: ";
 }

@@ -14,6 +14,38 @@ Many directives can have options, they are specified in the following format:
 
 If an option is not provided (or if the provided value is not valid), the first value on the list will be used.
 
+
+## Common Form Information
+
+Form information fields can be displayed using the `Information` directive:
+
+    [Information
+        display:(
+            "Process"|"Title"|"Number"|
+            "Status"|"Owner"|
+            "Started"|"Started by"|
+            "Modified"|"Modified by"|
+            "Approval result"
+        )
+        format:(
+            "%B %d, %Y"|
+            <string>
+        )
+    ]
+
+### Options
+
+- `display` - determine which information field to show.
+- `format` - define the date formatting to show.
+
+    See the format options on [Date Formatting](#date-formatting).
+
+    This field only applies when `display` is:
+    - "Started"
+    - "Modified"
+
+The following directive are available to show common
+
 ## Simple fields
 
 Custom fields can be displayed inside reports by using the field's name as the directive content:
@@ -212,32 +244,29 @@ The `<content>` of the directive can contain other directives. They have to be o
 
       [Priority]
 
-- <a name="due">`Due`</a> - current due date for the action
+- `Due` - current due date for the action
 
       [Due format:("%B %d, %Y"|<string>)]
 
-    The format option can be built using [Mootool's date format options][mootools-date].
-    The default format `"%B %d, %Y"` will print dates as `January 12, 1986`.
-
-[mootools-date]: http://mootools.net/docs/more/Types/Date#Date:format
+    See the format options on [Date Formatting](#date-formatting).
 
 - `OriginalDue` - original due date of the action
 
       [OriginalDue format:("%B %d, %Y"|<string>)]
 
-    See the format options on [Due](#due).
+    See the format options on [Date Formatting](#date-formatting).
 
 - `Start` - start date for the action
 
       [Start format:("%B %d, %Y"|<string>)]
 
-    See the format options on [Due](#due).
+    See the format options on [Date Formatting](#date-formatting).
 
 - `Completed` - completed date for the action
 
       [Start format:("%B %d, %Y"|<string>)]
     
-    See the format options on [Due](#due).
+    See the format options on [Date Formatting](#date-formatting).
 
 - `Duration` - the total number of days the action was/has been active
 
@@ -270,3 +299,12 @@ The `<content>` of the directive can contain other directives. They have to be *
 - `in` - indicate which process to look at for references to the reported form
 
     That process must have a reference field to the process of the form being reported.
+
+
+# Date Formatting
+
+When showing a field that contains a date, the `format` options can be defined using [Mootool's date format options][mootools-date].
+
+The default date format `"%B %d, %Y"` will print dates as `January 12, 1986`.
+
+[mootools-date]: http://mootools.net/docs/more/Types/Date#Date:format

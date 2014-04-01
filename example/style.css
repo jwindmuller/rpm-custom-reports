@@ -81,7 +81,7 @@ tr:last-child td {
 td.dotdotdot {
   text-align: center;
 }
-.form-field {
+.field {
   border: #d1d1d1 1px solid;
   padding: 0 5px;
   background: #f4f4f4;
@@ -89,11 +89,17 @@ td.dotdotdot {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-.form-field:before {
-  content: "Form Field: ";
+.form-field:before,
+.form-information:before,
+.reference:before {
+  content: "Field: ";
   color: #666666;
   font-size: 80%;
+  font-weight: normal;
+}
+.form-information:before {
+  content: "Information: ";
 }
 .reference:before {
-  content: "RefField: ";
+  content: "Reference: ";
 }
