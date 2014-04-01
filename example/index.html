@@ -108,7 +108,7 @@
       window.contentTextArea = document.getElementById('content');
     };
     var c = window.contentTextArea.value;
-    var parsed = parser.parse(c);
+    var parsed = ReportParser.parseText(c);
     $('preview').set('text', parsed);
     $('html-preview').set('html', parsed);
     ReportPreview.preview($('html-preview'));
