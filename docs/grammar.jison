@@ -8,12 +8,14 @@
 \[(Actions|RepeatingFields|Referenced)\]
 %{
   this.yy.directiveContent = false;
+  this.yy.match = undefined;
   this.yy.directive = undefined;
   return 'DIRECTIVE_END'
 %}
 \[(Actions|RepeatingFields|Referenced)[^\]]+\]
 %{
   this.yy.directive = ReportParser.Directive.parseName(this.match);
+  this.yy.match = this.match;
   this.yy.directiveContent = true;
   return 'DIRECTIVE_START'
 %}
@@ -61,7 +63,7 @@ content
     }
   | SIMPLE_DIRECTIVE
     {
-      $$ = ReportParser.Directive.parseSimple($1, yy.directive);
+      $$ = ReportParser.Directive.parseSimple($1, yy.directive, yy.match);
     }
   ;
 
@@ -78,6 +80,6 @@ directive_content
     {$$ = $1;}
   | SIMPLE_DIRECTIVE
     {
-      $$ = ReportParser.Directive.parseSimple($1, yy.directive);
+      $$ = ReportParser.Directive.parseSimple($1, yy.directive, yy.match);
     }
   ;
