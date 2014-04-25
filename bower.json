@@ -1,6 +1,6 @@
 {
   "name": "rpm-custom-reports",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "homepage": "https://github.com/rpmjoaquin/rpm-custom-reports",
   "authors": [
     "Joaquin Windmuller <joaquin@rpmsoftware.com>"
