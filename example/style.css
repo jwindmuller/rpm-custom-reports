@@ -103,3 +103,23 @@ td.dotdotdot {
 .reference:before {
   content: "Reference: ";
 }
+.field-group-directive {
+  border: #d1d1d1 1px solid;
+  padding: 0 5px;
+  background: #f4f4f4;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  display: block;
+}
+.field-group-directive:before {
+  content: "Field Group: show this content when it is active";
+  color: #666666;
+  font-size: 80%;
+  font-weight: normal;
+  border-bottom: #d1d1d1 1px solid;
+  display: block;
+}
+.field-group-directive[data-when="inactive"]:before {
+  content: "Field Group: show this content when it is inactive";
+}

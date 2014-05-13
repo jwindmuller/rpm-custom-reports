@@ -5,14 +5,14 @@
 %%
 
 /* directives */
-\[(Actions|RepeatingFields|Referenced)\]
+\[(Actions|RepeatingFields|Referenced|FieldGroup)\]
 %{
   this.yy.directiveContent = false;
   this.yy.match = undefined;
   this.yy.directive = undefined;
   return 'DIRECTIVE_END'
 %}
-\[(Actions|RepeatingFields|Referenced)[^\]]+\]
+\[(Actions|RepeatingFields|Referenced|FieldGroup)[^\]]+\]
 %{
   this.yy.directive = ReportParser.Directive.parseName(this.match);
   this.yy.match = this.match;

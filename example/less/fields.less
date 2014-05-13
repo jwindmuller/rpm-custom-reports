@@ -4,14 +4,16 @@
   background:@background-darker;
   .rounded(3px);
 }
-
-.form-field:before,
-.form-information:before,
-.reference:before {
-  content: "Field: ";
+.before(@content) {
+  content: @content;
   color:@text-color-lighter;
   font-size: 80%;
   font-weight: normal;
+}
+.form-field:before,
+.form-information:before,
+.reference:before {
+  .before("Field: ");
 }
 .form-information:before {
   content: "Information: ";
@@ -19,4 +21,18 @@
 
 .reference:before {
   content: "Reference: ";
+}
+
+.field-group-directive {
+  .field;
+  display: block;
+}
+.field-group-directive:before {
+  .before("Field Group: show this content when it is active");
+  border-bottom: @border 1px solid;
+  display: block;
+}
+
+.field-group-directive[data-when="inactive"]:before {
+  content: "Field Group: show this content when it is inactive";
 }
