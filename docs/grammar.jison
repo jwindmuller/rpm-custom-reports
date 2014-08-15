@@ -69,7 +69,7 @@ content
 
 directive_contents
   : 
-    { $$ = 'cosa'; }
+    { $$ = ''; }
   | directive_content
     {$$ = $1;}
   | directive_contents directive_content
@@ -78,6 +78,12 @@ directive_contents
 directive_content
   : CONTENT
     {$$ = $1;}
+  | DIRECTIVE_START
+      directive_contents
+    DIRECTIVE_END
+    {
+      $$ = ReportParser.Directive.parse($1, $2);
+    }
   | SIMPLE_DIRECTIVE
     {
       $$ = ReportParser.Directive.parseSimple($1, yy.directive, yy.match);

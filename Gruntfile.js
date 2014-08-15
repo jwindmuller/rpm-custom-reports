@@ -64,7 +64,7 @@ module.exports = function(grunt) {
   grunt.registerTask('md', ['markdown', 'watch:md']);
 
   // Default Task is all
-  grunt.registerTask('all', ['markdown', 'jison', 'copy', 'less']);
+  grunt.registerTask('all', ['markdown', 'jison:parser', 'copy', 'less']);
 
   grunt.registerTask('default', ['all', 'watch:all']);
   
