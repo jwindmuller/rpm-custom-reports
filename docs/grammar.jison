@@ -14,6 +14,9 @@
 %}
 \[(Actions|RepeatingFields|Referenced|FieldGroup)[^\]]+\]
 %{
+  if (ReportParser.Directive.directiveIsFieldName(this.match)) {
+    return 'SIMPLE_DIRECTIVE';
+  }
   this.yy.directive = ReportParser.Directive.parseName(this.match);
   this.yy.match = this.match;
   this.yy.directiveContent = true;
