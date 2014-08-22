@@ -31,6 +31,7 @@
 /* The rest */
 (.)                     return 'CONTENT'
 (\n)                    return 'CONTENT'
+(\r)                    return 'CONTENT'
 <<EOF>>                 return 'EOF'
 
 /lex
