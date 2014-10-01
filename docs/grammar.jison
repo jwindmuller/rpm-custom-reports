@@ -23,7 +23,7 @@
   return 'DIRECTIVE_START'
 %}
 
-\[\w+[^\]]+\]
+\[[^\]]+\]
 %{
   return 'SIMPLE_DIRECTIVE';
 %}
